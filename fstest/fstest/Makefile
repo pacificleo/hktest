@@ -11,7 +11,7 @@ endif
 #CFLAGS+=-DHAS_STAT64
 ifeq ($(Platform),Linux)
 CFLAGS+=-DHAS_ACL
-LDLIBS=-lacl
+LDLIBS=-lacl -lm
 endif
 
 all:	fstest

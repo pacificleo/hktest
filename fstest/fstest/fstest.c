@@ -42,6 +42,7 @@
 #include <assert.h>
 #include <sys/types.h>
 #include <utime.h>
+#include <math.h>
 #ifdef HAS_ACL
 #include <sys/acl.h>
 #endif
@@ -299,6 +300,7 @@ find_syscall(const char *name)
 static void
 show_stat(struct stat64 *sp, const char *what)
 {
+	double ts;
 
 	if (strcmp(what, "mode") == 0)
 		printf("0%o", (unsigned int)(sp->st_mode & ALLPERMS));
@@ -314,12 +316,16 @@ show_stat(struct stat64 *sp, const char *what)
 		printf("%lld", (long long)sp->st_size);
 	else if (strcmp(what, "blocks") == 0)
 		printf("%lld", (long long)sp->st_blocks);
-	else if (strcmp(what, "atime") == 0)
-		printf("%lld", (long long)sp->st_atime);
-	else if (strcmp(what, "mtime") == 0)
-		printf("%lld", (long long)sp->st_mtime);
-	else if (strcmp(what, "ctime") == 0)
-		printf("%lld", (long long)sp->st_ctime);
+	else if (strcmp(what, "atime") == 0) {
+		ts = sp->st_atim.tv_sec + ((double)sp->st_atim.tv_nsec)/1e9;
+		printf("%lld", (long long)ceil(ts));
+	} else if (strcmp(what, "mtime") == 0) {
+		ts = sp->st_mtim.tv_sec + ((double)sp->st_mtim.tv_nsec)/1e9;
+		printf("%lld", (long long)ceil(ts));
+	} else if (strcmp(what, "ctime") == 0) {
+		ts = sp->st_ctim.tv_sec + ((double)sp->st_ctim.tv_nsec)/1e9;
+		printf("%lld", (long long)ceil(ts));
+        }
 #ifdef HAS_CHFLAGS
 	else if (strcmp(what, "flags") == 0)
 		printf("%s", flags2str(chflags_flags, sp->st_flags));

@@ -329,7 +329,7 @@ SunOS:*|Linux:ntfs-3g)
 	test_check $ctime1 -eq $ctime2
 	;;
 Linux:*)
-	test_check $ctime1 -lt $ctime2
+	test_check $ctime1 -le $ctime2
 	;;
 *)
 	test_check $ctime1 -le $ctime2
@@ -350,7 +350,7 @@ SunOS:*|Linux:ntfs-3g)
 	test_check $ctime1 -eq $ctime2
 	;;
 Linux:*)
-	test_check $ctime1 -lt $ctime2
+	test_check $ctime1 -le $ctime2
 	;;
 *)
 	test_check $ctime1 -le $ctime2
@@ -371,7 +371,7 @@ SunOS:*|Linux:ntfs-3g)
 	test_check $ctime1 -eq $ctime2
 	;;
 Linux:*)
-	test_check $ctime1 -lt $ctime2
+	test_check $ctime1 -le $ctime2
 	;;
 *)
 	test_check $ctime1 -le $ctime2
@@ -392,7 +392,7 @@ SunOS:*|Linux:ntfs-3g)
 	test_check $ctime1 -eq $ctime2
 	;;
 Linux:*)
-	test_check $ctime1 -lt $ctime2
+	test_check $ctime1 -le $ctime2
 	;;
 *)
 	test_check $ctime1 -le $ctime2
